@@ -6,7 +6,11 @@
 
   <groupId>io.mohkeita</groupId>
   <artifactId>fraudeservices</artifactId>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>customer</module>
+  </modules>
 
   <name>fraudeservices</name>
 
