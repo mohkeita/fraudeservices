@@ -2,6 +2,7 @@ package io.mohkeita.customer.service;
 
 import io.mohkeita.clients.fraud.FraudCheckResponse;
 import io.mohkeita.clients.fraud.FraudClient;
+import io.mohkeita.clients.notification.NotificationRequest;
 import io.mohkeita.customer.dto.CustomerRegistrationRequest;
 import io.mohkeita.customer.model.Customer;
 import io.mohkeita.customer.repository.CustomerRepository;
@@ -31,7 +32,15 @@ public class CustomerService {
        if (fraudCheckResponse.isFraudster()) {
            throw new IllegalStateException("fraudster");
        }
-        // todo: send notification
+
+       // todo: make it async. i.e add to queue
+        NotificationRequest notificationRequest =
+                new NotificationRequest(
+                customer.getId(),
+                customer.getEmail(),
+                String.format("Hi %s, welcome to Mohkeita...",
+                        customer.getFirstName())
+        );
 
     }
 }
