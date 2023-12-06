@@ -1,7 +1,8 @@
 package io.mohkeita.customer.service;
 
+import io.mohkeita.clients.fraud.FraudCheckResponse;
+import io.mohkeita.clients.fraud.FraudClient;
 import io.mohkeita.customer.dto.CustomerRegistrationRequest;
-import io.mohkeita.customer.dto.FraudCheckResponse;
 import io.mohkeita.customer.model.Customer;
 import io.mohkeita.customer.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 public class CustomerService {
     private final CustomerRepository customerRepository;
     private final RestTemplate restTemplate;
+    private final FraudClient fraudClient;
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
@@ -23,11 +25,8 @@ public class CustomerService {
         // todo: check if email taken
         customerRepository.saveAndFlush(customer);
         // todo: check if fraudster
-       FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
-                "http://FRAUD/api/v1/fraud-check/{customerId}",
-                FraudCheckResponse.class,
-                customer.getId()
-        );
+
+        FraudCheckResponse fraudCheckResponse  = fraudClient.isFraudster(customer.getId());
 
        if (fraudCheckResponse.isFraudster()) {
            throw new IllegalStateException("fraudster");

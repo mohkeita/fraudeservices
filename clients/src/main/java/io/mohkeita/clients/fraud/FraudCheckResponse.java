@@ -1,4 +1,4 @@
-package io.mohkeita.customer.dto;
+package io.mohkeita.clients.fraud;
 
 public record FraudCheckResponse(Boolean isFraudster) {
 }

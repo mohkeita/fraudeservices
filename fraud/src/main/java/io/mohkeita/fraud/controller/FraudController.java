@@ -1,6 +1,6 @@
 package io.mohkeita.fraud.controller;
 
-import io.mohkeita.fraud.dto.FraudCheckResponse;
+import io.mohkeita.clients.fraud.FraudCheckResponse;
 import io.mohkeita.fraud.service.FraudCheckService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
