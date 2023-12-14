@@ -1,4 +1,4 @@
-package io.nohkeita.notification.model;
+package io.mohkeita.notification.model;
 
 import lombok.*;
 

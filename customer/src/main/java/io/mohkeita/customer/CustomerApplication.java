@@ -5,7 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@SpringBootApplication
+@SpringBootApplication(
+        scanBasePackages = {
+                "io.mohkeita.customer",
+                "io.mohkeita.amqp"
+        }
+)
 @EnableEurekaClient
 @EnableFeignClients(
         basePackages = "io.mohkeita.clients"

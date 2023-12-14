@@ -1,5 +1,6 @@
 package io.mohkeita.customer.service;
 
+import io.mohkeita.amqp.RabbitMQMessageProducer;
 import io.mohkeita.clients.fraud.FraudCheckResponse;
 import io.mohkeita.clients.fraud.FraudClient;
 import io.mohkeita.clients.notification.NotificationRequest;
@@ -14,8 +15,8 @@ import org.springframework.web.client.RestTemplate;
 @AllArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
-    private final RestTemplate restTemplate;
     private final FraudClient fraudClient;
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
@@ -33,7 +34,6 @@ public class CustomerService {
            throw new IllegalStateException("fraudster");
        }
 
-       // todo: make it async. i.e add to queue
         NotificationRequest notificationRequest =
                 new NotificationRequest(
                 customer.getId(),
@@ -41,6 +41,14 @@ public class CustomerService {
                 String.format("Hi %s, welcome to Mohkeita...",
                         customer.getFirstName())
         );
+
+       rabbitMQMessageProducer.publish(
+               notificationRequest,
+               "internal.exchange",
+               "internal.notification.routing-key"
+       );
+
+
 
     }
 }

@@ -1,8 +1,8 @@
-package io.nohkeita.notification.service;
+package io.mohkeita.notification.service;
 
 import io.mohkeita.clients.notification.NotificationRequest;
-import io.nohkeita.notification.model.Notification;
-import io.nohkeita.notification.repository.NotificationRepository;
+import io.mohkeita.notification.model.Notification;
+import io.mohkeita.notification.repository.NotificationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

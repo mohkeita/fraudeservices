@@ -1,7 +1,7 @@
-package io.nohkeita.notification.controller;
+package io.mohkeita.notification.controller;
 
 import io.mohkeita.clients.notification.NotificationRequest;
-import io.nohkeita.notification.service.NotificationService;
+import io.mohkeita.notification.service.NotificationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
